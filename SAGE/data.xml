@@ -8,12 +8,12 @@
     <img id="4">char.png</img>
   </assets>
 
-  <charactermap id="5" src="charactersheet.png" width="64" height="64">
-    <state timing="0.07" imgCount="8" name="up">64,0,64,64</state>
-    <state timing="0.07" imgCount="8" name="left">64,64,64,64</state>
-    <state timing="0.07" imgCount="8" name="down">64,128,64,64</state>
-    <state timing="0.07" imgCount="8" name="right">64,192,64,64</state>
-    <state timing="0" imgCount="1" name="idle">0,0,64,64</state>
+  <charactermap id="5" src="charactersheet.png" width="32" height="64">
+    <state timing="0.07" imgCount="8" name="up">32,0,32,64</state>
+    <state timing="0.07" imgCount="8" name="left">32,64,32,64</state>
+    <state timing="0.07" imgCount="8" name="down">32,128,32,64</state>
+    <state timing="0.07" imgCount="8" name="right">32,192,32,64</state>
+    <state timing="0" imgCount="1" name="idle">0,0,32,64</state>
   </charactermap>
 
   <level id="1" width="19" height="11">
