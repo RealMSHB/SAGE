@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+  <title id="1">Sokoban</title>
+  <assets path="Assets/">
+    <img id="1">wall.png</img>
+    <img id="2">dot.png</img>
+    <img id="3">box.png</img>
+    <img id="4">char.png</img>
+  </assets>
+
+  <charactermap id="5" src="charactersheet.png" width="64" height="64">
+    <state timing="0.07" imgCount="8" name="up">64,0,64,64</state>
+    <state timing="0.07" imgCount="8" name="left">64,64,64,64</state>
+    <state timing="0.07" imgCount="8" name="down">64,128,64,64</state>
+    <state timing="0.07" imgCount="8" name="right">64,192,64,64</state>
+    <state timing="0" imgCount="1" name="idle">0,0,64,64</state>
+  </charactermap>
+
+  <level id="1" width="19" height="11">
+    0000111110000000000
+    0000100010000000000
+    0000130010000000000
+    0011100311000000000
+    0010030301000000000
+    1110101101000111111
+    1000101101111100221
+    1030030000040000221
+    1111101110101100221
+    0000100000111111111
+    0000111111100000000
+  </level>
+
+  <scene>
+    <actor id ="1" asset="5" x="100" y="100" input="keyboard">
+      <state speed="0">idle</state>
+      <state key="A" speed="0.1">left</state>
+      <state key="D" speed="0.1">right</state>
+    </actor>
+  </scene>
+</data>
