@@ -1,6 +1,7 @@
 #include "Manager.h"
 #include "Base.h"
 #include "WordDelimitedByCharacter.h"
+#include <cmath>
 
 using namespace std;
 using namespace sf;
@@ -108,6 +109,7 @@ void CharacterSheet::Start(Manager *pManager, xml_node<>* pNode)
 		string  file = pManager->m_strAssets + pAttr->value();
 		if (m_Texture.loadFromFile(file)) {
 			m_Sprite.setTexture(m_Texture);
+			m_Sprite.setOrigin(32, 32);
 		}
 
 		if (pNode != NULL) {
@@ -154,12 +156,27 @@ void CharacterSheet::SetVelocity(sf::Vector2f velocity)
 
 sf::Vector2f CharacterSheet::GetPosition()
 {
-	return m_vPos;
+	return m_Sprite.getPosition();
 }
 
 void CharacterSheet::Update(RenderWindow* pWindow)
 {
-	m_Sprite.setPosition(Interpolate(m_Sprite.getPosition(), m_vGotoPosition,0.05f));
+	float deltatime = m_dTime.restart().asSeconds();
+	Vector2f movePosition = Interpolate(m_Sprite.getPosition(), m_vGotoPosition, deltatime * 1.0f);
+
+	if (movePosition.x != -9999 && movePosition.y != -9999)
+	{
+		m_Sprite.setPosition(movePosition);
+	}
+	else
+	{
+		if (GetState() != 4)
+		{
+			SetState(4);
+		}
+	}
+		
+
 	//m_Sprite.move(m_vVelocity);
 
 	if (m_Clock.getElapsedTime().asSeconds() > m_AnimStates[m_AnimStateId]->m_Timing)
@@ -204,7 +221,7 @@ int CharacterSheet::GetState()
 	return m_AnimStateId;
 }
 
-sf::Vector2f CharacterSheet::Interpolate(const sf::Vector2f pointA, const sf::Vector2f pointB, float factor)
+sf::Vector2f CharacterSheet::Interpolate(sf::Vector2f pointA, sf::Vector2f pointB, float factor)
 {
 	if (factor > 1.f)
 		factor = 1.f;
@@ -212,7 +229,21 @@ sf::Vector2f CharacterSheet::Interpolate(const sf::Vector2f pointA, const sf::Ve
 	else if (factor < 0.f)
 		factor = 0.f;
 
-	return pointA + (pointB - pointA) * factor;
+	//return pointA + (pointB - pointA) * factor;
+
+	float xDistance = pointB.x - pointA.x;
+	float yDistance = pointB.y - pointA.y;
+	float distance = sqrt(xDistance * xDistance + yDistance * yDistance);
+	if (distance > 20) {
+		pointA.x += xDistance * factor;
+		pointA.y += yDistance * factor;
+	}
+	else
+	{
+		pointA.x = -9999;
+		pointA.y = -9999;
+	}
+	return pointA;
 }
 // -------------------------------------------------
 AnimState::AnimState(float timing, int imgCount, IntRect rect)
@@ -220,4 +251,21 @@ AnimState::AnimState(float timing, int imgCount, IntRect rect)
 	m_Timing = timing;
 	m_ImageCount = imgCount;
 	m_Rect = rect;
+}
+
+ObjectInScene::ObjectInScene(int id, int x, int y)
+{
+	m_AssetId = id;
+	m_Position.x = x;
+	m_Position.y = y;
+}
+
+Scene::Scene(int id)
+{
+	m_Id = id;
+}
+
+Scene::Scene()
+{
+	m_Id = 0;
 }

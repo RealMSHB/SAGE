@@ -2,18 +2,21 @@
 <data>
   <title id="1">Sokoban</title>
   <assets path="Assets/">
-    <img id="1">wall.png</img>
-    <img id="2">dot.png</img>
-    <img id="3">box.png</img>
-    <img id="4">char.png</img>
+    <img id="0">ground.png</img>
+    <img id="1">stoneground.png</img>
+    <img id="2">brickground.png</img>
+    <img id="2">wall.png</img>
+    <img id="3">dot.png</img>
+    <img id="4">box.png</img>
+    <img id="5">char.png</img>
   </assets>
 
-  <charactermap id="5" src="charactersheet.png" width="32" height="64">
-    <state timing="0.07" imgCount="8" name="up">32,0,32,64</state>
-    <state timing="0.07" imgCount="8" name="left">32,64,32,64</state>
-    <state timing="0.07" imgCount="8" name="down">32,128,32,64</state>
-    <state timing="0.07" imgCount="8" name="right">32,192,32,64</state>
-    <state timing="0" imgCount="1" name="idle">0,0,32,64</state>
+  <charactermap id="5" src="charactersheet.png" width="64" height="64">
+    <state timing="0.04" imgCount="8" name="up">64,0,64,64</state>
+    <state timing="0.04" imgCount="8" name="left">64,64,64,64</state>
+    <state timing="0.04" imgCount="8" name="down">64,128,64,64</state>
+    <state timing="0.04" imgCount="8" name="right">64,192,64,64</state>
+    <state timing="0" imgCount="1" name="idle">0,0,64,64</state>
   </charactermap>
 
   <level id="1" width="19" height="11">
@@ -30,11 +33,33 @@
     0000111111100000000
   </level>
 
-  <scene>
-    <actor id ="1" asset="5" x="100" y="100" input="keyboard">
-      <state speed="0">idle</state>
-      <state key="A" speed="0.1">left</state>
-      <state key="D" speed="0.1">right</state>
-    </actor>
-  </scene>
+  <scenes>
+    <scene id ="0">
+      <object id="0" x="0" y="0"></object>
+      <object id="3" x="100" y="100"></object>
+      <object id="4" x="200" y="70"></object>
+      <object id="3" x="100" y="310"></object>
+      <object id="4" x="200" y="70"></object>
+      <object id="3" x="500" y="300"></object>
+      <object id="3" x="300" y="20"></object>
+    </scene>
+    <scene id ="1">
+      <object id="1" x="0" y="0"></object>
+      <object id="3" x="100" y="100"></object>
+      <object id="3" x="200" y="70"></object>
+      <object id="3" x="100" y="310"></object>
+      <object id="3" x="200" y="70"></object>
+      <object id="3" x="500" y="300"></object>
+      <object id="3" x="300" y="20"></object>
+    </scene>
+    <scene id ="2">
+      <object id="2" x="0" y="0"></object>
+      <object id="4" x="100" y="100"></object>
+      <object id="4" x="200" y="70"></object>
+      <object id="4" x="100" y="310"></object>
+      <object id="4" x="200" y="70"></object>
+      <object id="4" x="500" y="300"></object>
+      <object id="4" x="300" y="20"></object>
+    </scene>
+  </scenes>
 </data>

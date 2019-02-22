@@ -59,6 +59,7 @@ class CharacterSheet : public Entity
 	sf::Vector2f		m_vVelocity;
 	sf::Vector2f		m_vGotoPosition;
 	sf::Clock			m_Clock;
+	sf::Clock			m_dTime;
 	int					m_AnimStateId;
 	int					m_PrevAnimStateId;
 	int					m_AnimIndex;
@@ -91,5 +92,29 @@ public:
 
 	friend class CharacterSheet;
 
+};
+
+class ObjectInScene
+{
+public:
+	int m_AssetId;
+	sf::Vector2f m_Position;
+
+
+	ObjectInScene(int id, int x, int y);
+	friend class Scene;
+};
+
+class Scene
+{
+	int m_Id;
+	std::list<ObjectInScene*> m_ObjcetsInScene;
+
+public:
+	Scene();
+	Scene(int id);
+
+
+	friend class Manager;
 };
 

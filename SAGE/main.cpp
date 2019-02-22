@@ -18,8 +18,7 @@ float speed = 250;
 
 int main()
 {
-	RenderWindow window(VideoMode(608, 352), "My Window");
-
+	RenderWindow window(VideoMode(600, 350), "Adventure Game", sf::Style::Titlebar | sf::Style::Close);
 	window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
 
@@ -51,6 +50,13 @@ int main()
 		}
 	}
 
+	pNode = FindChildNode(pRootNode, "scenes");
+	if (pNode != NULL) {
+		manager.LoadSceneData(pNode);
+	}
+
+	manager.SetCurrentScene(0);
+	manager.SetWindow(&window);
 
 	pNode = FindChildNode(pRootNode, "charactermap");
 	if (pNode != NULL) {
@@ -68,57 +74,77 @@ int main()
 
 			if (Mouse::isButtonPressed(Mouse::Button::Left))
 			{
-				factor += (deltatime * characterMoveSpeed);
+				if (Mouse::getPosition(window).x > pCharacterSheet->GetPosition().x)
+				{
+					if (pCharacterSheet->GetState() != 3)
+					{
+						pCharacterSheet->SetState(3);
+					}
+				}
+				else
+				{
+					if (pCharacterSheet->GetState() != 1)
+					{
+						pCharacterSheet->SetState(1);
+					}
+				}
 				pCharacterSheet->SetGoToPosition((Vector2f)Mouse::getPosition(window));
+
 			}
 
-			//if (Keyboard::isKeyPressed(Keyboard::A))
-			//{
-			//	if (pCharacterSheet->GetState() != 2)
-			//	{
-			//		pCharacterSheet->SetState(2);
-			//	}
+			if (Keyboard::isKeyPressed(Keyboard::Num1))
+			{
+				manager.SetCurrentScene(0);
+			}
+			if (Keyboard::isKeyPressed(Keyboard::Num2))
+			{
+				manager.SetCurrentScene(1);
+			}
+			if (Keyboard::isKeyPressed(Keyboard::Num3))
+			{
+				manager.SetCurrentScene(2);
+			}
+			/*
+			else if (Keyboard::isKeyPressed(Keyboard::S))
+			{
+				if (pCharacterSheet->GetState() != 3)
+				{
+					pCharacterSheet->SetState(3);
+				}
 
-			//	pCharacterSheet->SetVelocity(Vector2f(-speed * deltatime, 0));
-			//}
-			//else if (Keyboard::isKeyPressed(Keyboard::S))
-			//{
-			//	if (pCharacterSheet->GetState() != 3)
-			//	{
-			//		pCharacterSheet->SetState(3);
-			//	}
+				pCharacterSheet->SetVelocity(Vector2f(0, speed * deltatime));
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::D))
+			{
+				if (pCharacterSheet->GetState() != 1)
+				{
+					pCharacterSheet->SetState(1);
+				}
 
-			//	pCharacterSheet->SetVelocity(Vector2f(0, speed * deltatime));
-			//}
-			//else if (Keyboard::isKeyPressed(Keyboard::D))
-			//{
-			//	if (pCharacterSheet->GetState() != 1)
-			//	{
-			//		pCharacterSheet->SetState(1);
-			//	}
+				pCharacterSheet->SetVelocity(Vector2f(speed* deltatime, 0));
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::W))
+			{
+				if (pCharacterSheet->GetState() != 0)
+				{
+					pCharacterSheet->SetState(0);
+				}
 
-			//	pCharacterSheet->SetVelocity(Vector2f(speed* deltatime, 0));
-			//}
-			//else if (Keyboard::isKeyPressed(Keyboard::W))
-			//{
-			//	if (pCharacterSheet->GetState() != 0)
-			//	{
-			//		pCharacterSheet->SetState(0);
-			//	}
-
-			//	pCharacterSheet->SetVelocity(Vector2f(0, -speed * deltatime));
-			//}
-			//else
-			//{
-			//	if (pCharacterSheet->GetState() != 4)
-			//	{
-			//		pCharacterSheet->SetState(4);
-			//	}
-			//	pCharacterSheet->SetVelocity(Vector2f(0, 0));
-			//}
+				pCharacterSheet->SetVelocity(Vector2f(0, -speed * deltatime));
+			}
+			else
+			{
+				if (pCharacterSheet->GetState() != 4)
+				{
+					pCharacterSheet->SetState(4);
+				}
+				pCharacterSheet->SetVelocity(Vector2f(0, 0));
+			}*/
 		}
 
 		window.clear(Color::White);
+
+		manager.LoadCurrentScene();
 
 		if (pCharacterSheet != NULL)
 			pCharacterSheet->Update(&window);
@@ -128,14 +154,3 @@ int main()
 	return 0;
 }
 
-
-//Vector2f Interpolate(const Vector2f& pointA, const Vector2f& pointB,float factor)
-//{
-//	if (factor > 1.f)
-//		factor = 1.f;
-//
-//	else if (factor < 0.f)
-//		factor = 0.f;
-//
-//	return pointA + (pointB - pointA) * factor;
-//}
