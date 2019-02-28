@@ -37,7 +37,7 @@ class ImageClass : public Entity
 	sf::Texture			m_Texture;
 	sf::Sprite			m_Sprite;
 	sf::Vector2f		m_vPos;
-	ImageClass*				m_pImage;
+	ImageClass*			m_pImage;
 
 public:
 	ImageClass();
@@ -84,9 +84,9 @@ public:
 
 class AnimState
 {
-	float			m_Timing;
-	int				m_ImageCount;
-	sf::IntRect     m_Rect;
+	float				m_Timing;
+	int					m_ImageCount;
+	sf::IntRect			m_Rect;
 public:
 	AnimState(float timing, int imgCount, sf::IntRect rect);
 
@@ -97,8 +97,8 @@ public:
 class ObjectInScene
 {
 public:
-	int m_AssetId;
-	sf::Vector2f m_Position;
+	int					m_AssetId;
+	sf::Vector2f		m_Position;
 
 
 	ObjectInScene(int id, int x, int y);
@@ -107,7 +107,9 @@ public:
 
 class Scene
 {
+
 	int m_Id;
+public:
 	std::list<ObjectInScene*> m_ObjcetsInScene;
 
 public:
@@ -117,4 +119,17 @@ public:
 
 	friend class Manager;
 };
+
+class Inventory
+{
+public:
+	std::list<int>			m_ItemsInInventory;
+
+	Inventory();
+	void AddItemInInventory(int itemId);
+
+	friend class Manager;
+};
+
+
 

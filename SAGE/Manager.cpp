@@ -9,7 +9,6 @@ using namespace rapidxml;
 
 Manager::Manager()
 {
-
 }
 
 Entity* Manager::GetAssetByID(int ID)
@@ -50,17 +49,17 @@ void Manager::SetCurrentScene(int id)
 	{
 		if ((*i)->m_Id == id)
 		{
-			m_CurrentScene = *(*i);
+			m_CurrentScene = (*i);
 			return;
 		}
 	}
-	m_CurrentScene = *(*m_Scenes.begin());
+	m_CurrentScene = (*m_Scenes.begin());
 }
 
 void Manager::LoadCurrentScene()
 {
 	list<ObjectInScene*>::iterator i;
-	for (i = m_CurrentScene.m_ObjcetsInScene.begin(); i != m_CurrentScene.m_ObjcetsInScene.end(); ++i)
+	for (i = (*m_CurrentScene).m_ObjcetsInScene.begin(); i != (*m_CurrentScene).m_ObjcetsInScene.end(); ++i)
 	{
 
 		ImageClass* pItem = (ImageClass*)GetAssetByID((*i)->m_AssetId);
@@ -70,10 +69,75 @@ void Manager::LoadCurrentScene()
 			pItem->Update(m_Window);
 		}
 	}
-	
+
 }
 
 void Manager::SetWindow(sf::RenderWindow *window)
 {
 	m_Window = window;
 }
+
+// update cursor image according to its postion on the screen
+void Manager::UpdateCursor()
+{
+	ImageClass* pItem;
+	switch (m_CursorState)
+	{
+	case 0: // lock cursor
+		pItem = (ImageClass*)GetAssetByID(9);
+		if (pItem != NULL)
+		{
+			pItem->SetPosition(Vector2f(Mouse::getPosition(*m_Window)));
+			pItem->Update(m_Window);
+		}
+		break;
+	case 1: // normal cursor
+		pItem = (ImageClass*)GetAssetByID(6);
+		if (pItem != NULL)
+		{
+			pItem->SetPosition(Vector2f(Mouse::getPosition(*m_Window)));
+			pItem->Update(m_Window);
+		}
+		break;
+	case 2: // next scene cursor
+		pItem = (ImageClass*)GetAssetByID(7);
+		if (pItem != NULL)
+		{
+			pItem->SetPosition(Vector2f(Mouse::getPosition(*m_Window)));
+			pItem->Update(m_Window);
+		}
+		break;
+	case 3: // previous scene cursor
+		pItem = (ImageClass*)GetAssetByID(8);
+		if (pItem != NULL)
+		{
+			pItem->SetPosition(Vector2f(Mouse::getPosition(*m_Window)));
+			pItem->Update(m_Window);
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+void Manager::UpdateInventory()
+{
+	if (!m_Inventory.m_ItemsInInventory.empty())
+	{
+		int counter = 1;
+		list<int>::iterator i;
+		for (i = m_Inventory.m_ItemsInInventory.begin(); i != m_Inventory.m_ItemsInInventory.end(); ++i)
+		{
+			ImageClass* pItem = (ImageClass*)GetAssetByID(*i);
+			if (pItem != NULL)
+			{
+				pItem->SetPosition(Vector2f((counter * 20), 10));
+				pItem->Update(m_Window);
+			}
+			counter++;
+		}
+	}
+}
+
+// ---------------------------------------------------------------
+

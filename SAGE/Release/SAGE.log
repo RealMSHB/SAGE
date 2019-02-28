@@ -1,5 +1,18 @@
-﻿  main.cpp
+﻿  Base.cpp
+g:\dev\sage\sage\base.cpp(62): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\dev\sage\sage\base.cpp(64): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\dev\sage\sage\base.cpp(102): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+g:\dev\sage\sage\base.cpp(104): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+g:\dev\sage\sage\base.cpp(122): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\dev\sage\sage\base.cpp(259): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+g:\dev\sage\sage\base.cpp(260): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Manager.cpp
+g:\dev\sage\sage\manager.cpp(134): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
+g:\dev\sage\sage\main.cpp(51): warning C4101: 'pChild': unreferenced local variable
   Generating code
-  All 4 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  0 of 772 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   SAGE.vcxproj -> G:\Dev\SAGE\Release\SAGE.exe

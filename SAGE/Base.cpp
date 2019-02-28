@@ -140,7 +140,7 @@ void CharacterSheet::Start(Manager *pManager, xml_node<>* pNode)
 
 void CharacterSheet::SetPosition(sf::Vector2f pos)
 {
-	m_vPos = pos;
+	m_Sprite.setPosition(pos);
 }
 
 void CharacterSheet::SetGoToPosition(sf::Vector2f pos)
@@ -172,16 +172,13 @@ void CharacterSheet::Update(RenderWindow* pWindow)
 	{
 		if (GetState() != 4)
 		{
-			SetState(4);
+			SetState(4); // sets the character animation state to idle
 		}
 	}
-		
-
-	//m_Sprite.move(m_vVelocity);
 
 	if (m_Clock.getElapsedTime().asSeconds() > m_AnimStates[m_AnimStateId]->m_Timing)
 	{
-		if (m_AnimStateId != 4)
+		if (m_AnimStateId != 4) // if animation state is not idle
 		{
 			m_Sprite.setTextureRect(IntRect(
 				m_AnimIndex * m_AnimStates[m_AnimStateId]->m_Rect.width + m_AnimStates[m_AnimStateId]->m_Rect.left,
@@ -229,8 +226,7 @@ sf::Vector2f CharacterSheet::Interpolate(sf::Vector2f pointA, sf::Vector2f point
 	else if (factor < 0.f)
 		factor = 0.f;
 
-	//return pointA + (pointB - pointA) * factor;
-
+	// calculates the distance
 	float xDistance = pointB.x - pointA.x;
 	float yDistance = pointB.y - pointA.y;
 	float distance = sqrt(xDistance * xDistance + yDistance * yDistance);
@@ -245,7 +241,9 @@ sf::Vector2f CharacterSheet::Interpolate(sf::Vector2f pointA, sf::Vector2f point
 	}
 	return pointA;
 }
+
 // -------------------------------------------------
+
 AnimState::AnimState(float timing, int imgCount, IntRect rect)
 {
 	m_Timing = timing;
@@ -253,12 +251,16 @@ AnimState::AnimState(float timing, int imgCount, IntRect rect)
 	m_Rect = rect;
 }
 
+// -------------------------------------------------
+
 ObjectInScene::ObjectInScene(int id, int x, int y)
 {
 	m_AssetId = id;
 	m_Position.x = x;
 	m_Position.y = y;
 }
+
+// -------------------------------------------------
 
 Scene::Scene(int id)
 {
@@ -268,4 +270,15 @@ Scene::Scene(int id)
 Scene::Scene()
 {
 	m_Id = 0;
+}
+
+// -------------------------------------------------
+
+Inventory::Inventory()
+{
+}
+
+void Inventory::AddItemInInventory(int itemId)
+{
+	m_ItemsInInventory.push_back(itemId);
 }

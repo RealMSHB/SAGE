@@ -1,9 +1,3 @@
-﻿  Base.cpp
-g:\dev\sage\sage\base.cpp(62): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-g:\dev\sage\sage\base.cpp(64): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-g:\dev\sage\sage\base.cpp(102): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-g:\dev\sage\sage\base.cpp(104): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-g:\dev\sage\sage\base.cpp(122): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-g:\dev\sage\sage\base.cpp(259): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-g:\dev\sage\sage\base.cpp(260): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  main.cpp
+g:\dev\sage\sage\main.cpp(49): warning C4101: 'pChild': unreferenced local variable
   SAGE.vcxproj -> G:\Dev\SAGE\Debug\SAGE.exe
